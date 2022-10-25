@@ -41,6 +41,15 @@ Widget itemofPost( BuildContext context,Contacts contacts){
         icon: Icons.delete,
         label: 'Delete',
       ),
+      SlidableAction(
+        onPressed: (BuildContext context){
+          BlocProvider.of<ListPostCubit>(context).callUpdatePage(context,contacts);
+        },
+        backgroundColor: Colors.red,
+        foregroundColor: Colors.white,
+        icon: Icons.details,
+        label: 'Details',
+      ),
 
     ],
   ),
