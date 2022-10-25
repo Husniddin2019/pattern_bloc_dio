@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
 import 'package:pattern_bloc/block/list_post_cubic.dart';
 import 'package:pattern_bloc/block/list_post_state.dart';
+import 'package:pattern_bloc/pages/create_page.dart';
 import 'package:pattern_bloc/view/view_of_home.dart';
 
 
@@ -29,6 +30,7 @@ class _homeState extends State<home1> {
     BlocProvider.of<ListPostCubit>(context).apiPostList();
   }
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -51,7 +53,9 @@ class _homeState extends State<home1> {
 
 
       floatingActionButton:  FloatingActionButton
-        (onPressed: (){ },child: Icon(Icons.add), ),
+        (onPressed: (){
+          BlocProvider.of<ListPostCubit>(context).callCreatePage(context);
+      },child: Icon(Icons.add), ),
     );
   }
 

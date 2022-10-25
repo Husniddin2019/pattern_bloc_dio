@@ -51,7 +51,7 @@ Widget itemofPost( BuildContext context,Contacts contacts){
       children: [
         SlidableAction(
           onPressed:(BuildContext context){
-           // new_view.apiUpdatePost(post);
+           BlocProvider.of<ListPostCubit>(context).callUpdatePage(context,contacts);
           },
           backgroundColor: Colors.tealAccent,
           foregroundColor: Colors.red,
