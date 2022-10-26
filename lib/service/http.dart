@@ -1,14 +1,19 @@
 import 'dart:convert';
+import 'dart:core';
+import 'dart:core';
 
 
-import 'package:http/http.dart';
+import 'package:dio/dio.dart';
+
 import 'package:pattern_bloc/model/contacts.dart';
 
 
 
 class Network {
-  static String BASE = "6352335aa9f3f34c3737179c.mockapi.io";
-  static Map<String,String> headers = {'Content-Type':'application/json; charset=UTF-8'};
+  static String BASE = "https://6352335aa9f3f34c3737179c.mockapi.io";
+  static Map<String,String> headers = {"Content-Type": "application/json"};
+  static var dio = Dio();
+
 
 
   /* Http Apis */
@@ -21,38 +26,41 @@ class Network {
   /* Http Requests */
 
   static Future<String?> GET(String api, Map<String, String> params) async {
-    var uri = Uri.https(BASE, api, params); // http or https
-    var response = await get(uri, headers: headers);
+     //var uri = dio.postUri(Uri.base.path, api, params); // http or https
+
+    var response = await dio.get<String>(BASE+api, options: Options(headers: headers) );
     if (response.statusCode == 200) {
-      return response.body;
+      return response.data?.toString();
     }
     return null;
   }
 
   static Future<String?> POST(String api, Map<String, String> params) async {
+
+
     print(params.toString());
-    var uri = Uri.https(BASE, api); // http or https
-    var response = await post(uri, headers: headers,body: jsonEncode(params));
+    //var uri = Uri.https(BASE, api); // http or https
+    var response = await dio.post<String>(BASE+api, options: Options(headers: headers));
     if (response.statusCode == 200 || response.statusCode == 201) {
-      return response.body;
+      return response.data?.toString();
     }
     return null;
   }
 
   static Future<String?> PUT(String api, Map<String, String> params) async {
-    var uri = Uri.https(BASE, api); // http or https
-    var response = await put(uri, headers: headers,body: jsonEncode(params));
+    //var uri = Uri.https(BASE, api); // http or https
+    var response = await dio.put<String>(BASE+api, options: Options(headers: headers));
     if (response.statusCode == 200) {
-      return response.body;
+      return response.data?.toString();
     }
     return null;
   }
 
   static Future<String?> DEL(String api, Map<String, String> params) async {
-    var uri = Uri.https(BASE, api, params); // http or https
-    var response = await delete(uri, headers: headers);
+   // var uri = Uri.https(BASE, api, params); // http or https
+    var response = await dio.delete(BASE+API_DELETE+api, options: Options( headers: headers));
     if (response.statusCode == 200) {
-      return response.body;
+      return response.data.toString();
     }
     return null;
   }

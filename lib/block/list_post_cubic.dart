@@ -28,7 +28,7 @@ class ListPostCubit extends Cubit <ListPostState>{
 
  void  apiPostDelete(Contacts contacts) async {
    emit(ListPostLoading());
-    final response = await Network.DEL(Network.API_DELETE + contacts.id.toString(), Network.paramsEmpty());
+    final response = await Network.DEL(contacts.id.toString(), Network.paramsEmpty());
     print(response);
 if (response!=null){
   apiPostList();
